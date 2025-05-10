@@ -154,8 +154,7 @@ def generate_index_html():
         row = f"<tr><td>{chap['id']}</td><td>{chap['title']}</td><td>{chap['arc']}</td><td>{chap['chapter_num']}</td><td>{chap['type']}</td><td>{chap['date']}</td><td>"
         for code in chap['languages']:
             row += f"<a href='chapter_{chap['id']}_{code}.html' class='btn btn-sm btn-outline-secondary m-1'>{code.upper()}</a>"
-        row += "</td></tr>
-"
+        row += "</td></tr>\n""
         rows += row
 
     html = f"""
