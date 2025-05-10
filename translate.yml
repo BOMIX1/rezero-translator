@@ -5,6 +5,9 @@ on:
     - cron: '0 * * * *'  # هذا يعني أن السكربت سيعمل كل ساعة
   workflow_dispatch:     # يسمح لك بتشغيله يدويًا أيضًا
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest  # نستخدم خادم أوبونتو على GitHub
