@@ -6,33 +6,33 @@ on:
   workflow_dispatch:     # يسمح لك بتشغيله يدويًا أيضًا
 
 permissions:
-  contents: write
+  contents: write  # ← هذا هو السطر الذي سيحل مشكلة 403
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # نستخدم خادم أوبونتو على GitHub
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3  # يقوم بسحب الملفات من مستودعك
+      uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'  # نثبت نسخة بايثون التي نحتاجها
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt  # تثبيت المكتبات المطلوبة
+        pip install -r requirements.txt
 
     - name: Run translator
       run: |
-        python rezero_smart_translator_named.py  # تشغيل السكربت لترجمة الفصل
+        python rezero_smart_translator_named.py
 
     - name: Commit updates
       run: |
         git config user.name "github-actions"
         git config user.email "actions@github.com"
-        git add .  # إضافة التغييرات
-        git commit -m "Update chapter and index" || echo "No changes"  # التزام التغييرات
-        git push  # رفع التغييرات إلى المستودع
+        git add .
+        git commit -m "Update chapter and index" || echo "No changes"
+        git push
