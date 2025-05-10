@@ -1,0 +1,35 @@
+name: Translate Latest Chapter
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # هذا يعني أن السكربت سيعمل كل ساعة
+  workflow_dispatch:     # يسمح لك بتشغيله يدويًا أيضًا
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # نستخدم خادم أوبونتو على GitHub
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3  # يقوم بسحب الملفات من مستودعك
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'  # نثبت نسخة بايثون التي نحتاجها
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # تثبيت المكتبات المطلوبة
+
+    - name: Run translator
+      run: |
+        python rezero_smart_translator_named.py  # تشغيل السكربت لترجمة الفصل
+
+    - name: Commit updates
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add .  # إضافة التغييرات
+        git commit -m "Update chapter and index" || echo "No changes"  # التزام التغييرات
+        git push  # رفع التغييرات إلى المستودع
