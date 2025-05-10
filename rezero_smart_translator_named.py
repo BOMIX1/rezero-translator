@@ -193,7 +193,15 @@ def run():
     if not chapters:
         return
     all_ids = [c['id'] for c in chapters]
-    latest = next((c for c in chapters if c['id'] == '726'), None)
+    latest = None
+for ch in chapters:
+    if ch['id'] == '726':
+        latest = ch
+        break
+if not latest:
+    print("Chapter 726 not found!")
+    exit()
+
 
     all_data = []
     if os.path.exists(translated_data_file):
